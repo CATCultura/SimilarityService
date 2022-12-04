@@ -1,0 +1,72 @@
+openapi: 3.0.1
+info:
+  version: 1.0.0
+  title: Similarity service
+  description: "This is the Open API documentation for the CatCultura's Similarity Service. Given a query q and a parameter K to specify the number of results, the service returns the K most relevant events for the given query q. The service uses a very basic Latent Semantic Analysis to perform the search."
+servers:
+  - url: 'tbd'
+paths:
+  /similarity:
+    get:
+      tags:
+      - similarity
+      description: Get the k most relevant events with regards to the query.
+      summary: Get most similar events
+      parameters:
+        - in: query
+          name: q
+          schema:
+            type: string
+            example: "concert de pop"
+          description: 'The query'
+        - in: query
+          name: k
+          schema:
+            type: integer
+            example: "10"
+          description: 'The top K results to return. 10 by default.'
+      responses:
+        '200':
+          description: Query processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfInt'
+
+        '400':
+          description: 'Error: Bad request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error400'
+
+components:
+  schemas:
+    ArrayOfInt:
+      type: array
+      items:
+        type: integer
+        format: int64
+      example: [1, 2, 3]
+
+    ErrorResult:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum: [400]
+        error:
+          type: string
+          enum: ["Bad request"]
+        message:
+          type: string
+  examples:
+    error400:
+      value:
+        status: 400
+        error: "Bad Request"
+        message: "Missing or empty q parameter"
+

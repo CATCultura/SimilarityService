@@ -66,7 +66,9 @@ class ModelGenerator:
         return vectorizer
 
     def _generate_svd(self, original_matrix):
-        svd = TruncatedSVD(n_components=1000, n_iter=10, random_state=52)
+        svd = TruncatedSVD(n_components=1000, n_iter=15, random_state=98)
+
         logging.info("Initiating SVD computation...")
         svd.fit(original_matrix)
+        logging.info(f'Explained variance: {svd.explained_variance_ratio_.sum()}')
         return svd

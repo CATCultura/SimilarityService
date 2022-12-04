@@ -54,7 +54,7 @@ class SimilarityService:
         logging.info('Reversed')
         logging.info(top_k)
         logging.info(similarity_score_list[top_k])
-
+        self._model_manager.unload_models()
         # returning the ids of the relevant events
         result = []
         for k in top_k:

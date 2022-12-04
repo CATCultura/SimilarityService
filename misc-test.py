@@ -8,7 +8,7 @@ from Service.SimilarityService import SimilarityService
 import logging
 
 logging.basicConfig(level=logging.INFO)
-logging.debug('This will get logged')
+# logging.debug('This will get logged')
 
 
 # data_fetcher = DataFetcher()
@@ -24,15 +24,23 @@ logging.debug('This will get logged')
 with open('data/current_data.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
-# model_generator = ModelGenerator()
-#
-# model_generator.generate_models(data)
+model_generator = ModelGenerator()
+
+model_generator.generate_models(data)
 
 sim_service = SimilarityService()
-query = "concert de jazz"
+query = "música clàssica"
 res = sim_service.get_k_most_similar_events(query, 5)
 
 for i in res:
     print(data[i]['denominacio'])
+    print(data[i]['descripcio'])
+
+query = "romanticisme"
+res = sim_service.get_k_most_similar_events(query, 5)
+
+for i in res:
+    print(data[i]['denominacio'])
+    print(data[i]['descripcio'])
 
 

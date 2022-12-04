@@ -29,7 +29,7 @@ app = flask.Flask(__name__)
 swagger = Swagger(app, template=template)
 # swagger.load_swagger_file('documentation/openAPIdoc.yml')
 
-app.config['DEBUG'] = True
+app.config['DEBUG'] = False
 
 
 @app.route("/similarity", methods=['GET'])

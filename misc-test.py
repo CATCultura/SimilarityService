@@ -30,7 +30,7 @@ with open('data/current_data.json', 'r', encoding='utf-8') as f:
 
 sim_service = SimilarityService()
 query = "concert de jazz"
-res = sim_service.get_k_most_similar_events(query,5)
+res = sim_service.get_k_most_similar_events(query, 5)
 
 for i in res:
     print(data[i]['denominacio'])

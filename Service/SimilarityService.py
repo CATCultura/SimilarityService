@@ -55,6 +55,7 @@ class SimilarityService:
         logging.info(top_k)
         logging.info(similarity_score_list[top_k])
 
+        # returning the ids of the relevant events
         result = []
         for k in top_k:
             result.append(mapping[str(k)])

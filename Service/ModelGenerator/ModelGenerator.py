@@ -12,7 +12,7 @@ from Service.DataManager.ModelManager import ModelManager
 
 def load_stopwords():
     temp = []
-    with open('data/empty-ca.txt', 'r', encoding='utf-8') as file:
+    with open('configuration/stopwords.txt', 'r', encoding='utf-8') as file:
         temp = file.readlines()
     stopwords = [unidecode(a.strip()) for a in temp]
     return stopwords
@@ -22,8 +22,11 @@ def extract_relevant_info(events: dict):
     mapper = {}
     text = []
     for i, event in enumerate(events):
-        mapper[i] = event['id']
-        text.append(event['descripcio'])
+        if event['descripcio']:
+            mapper[i] = event['id']
+            text.append(event['descripcio'])
+        else:
+            logging.info(f'Event with id {event["id"]} has no description. Skipping it...')
     return text, mapper
 
 
@@ -56,7 +59,8 @@ class ModelGenerator:
 
         self._model_manager.save_models(vec_model, svd)
 
-    def _generate_tfidfvec(self, textual_data):
+    @staticmethod
+    def _generate_tfidfvec(textual_data):
         stopwords = load_stopwords()
         vectorizer = TfidfVectorizer()
         vectorizer.strip_accents = 'unicode'
@@ -65,8 +69,11 @@ class ModelGenerator:
         vectorizer.fit(textual_data)
         return vectorizer
 
-    def _generate_svd(self, original_matrix):
-        svd = TruncatedSVD(n_components=1000, n_iter=10, random_state=52)
+    @staticmethod
+    def _generate_svd(original_matrix):
+        svd = TruncatedSVD(n_components=1000, n_iter=15, random_state=98)
+
         logging.info("Initiating SVD computation...")
         svd.fit(original_matrix)
+        logging.info(f'Explained variance: {svd.explained_variance_ratio_.sum()}')
         return svd

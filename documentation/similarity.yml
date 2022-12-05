@@ -1,0 +1,39 @@
+      tags:
+      - similarity
+      description: Get the k most relevant events with regards to the query.
+      summary: Get most similar events
+      parameters:
+        - in: query
+          name: q
+          schema:
+            type: string
+            example: "concert de pop"
+          description: 'The query'
+        - in: query
+          name: k
+          schema:
+            type: integer
+            example: "10"
+          description: 'The top K results to return. 10 by default.'
+      responses:
+        '200':
+          description: Query processed successfully
+          schema:
+            type: integer
+            format: int64
+            example: [ 1, 2, 3 ]
+
+        '400':
+          description: 'Error: Bad request'
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                enum: [400]
+              error:
+                type: string
+                enum: ["Bad request"]
+              message:
+                type: string
+                example: "Missing or empty q parameter"

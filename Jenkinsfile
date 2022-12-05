@@ -9,14 +9,14 @@ pipeline {
 //         }
 
         stage('Deploy') {
-        when {branch 'master'}
-            steps {
-//                 sh 'sudo docker kill $(sudo docker ps -q -f ancestor=similarity-service)'
-//                 sh 'sudo docker rmi similarity-service -f'
-                sh 'sudo docker build -t similarity-service .'
-//                 sh 'sudo docker run -d -p 5500:5500 -v dataset-json-repo:/py-service/data similarity-service'
+            when {branch 'main'}
+                steps {
+    //                 sh 'sudo docker kill $(sudo docker ps -q -f ancestor=similarity-service)'
+    //                 sh 'sudo docker rmi similarity-service -f'
+                    sh 'sudo docker build -t similarity-service .'
+    //                 sh 'sudo docker run -d -p 5500:5500 -v dataset-json-repo:/py-service/data similarity-service'
+                }
             }
-        }
 
        stage('Notify') {
            steps {
@@ -25,3 +25,4 @@ pipeline {
         }
 
     }
+}

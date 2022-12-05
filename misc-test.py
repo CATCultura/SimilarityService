@@ -13,6 +13,9 @@ logging.basicConfig(level=logging.INFO)
 
 # data_fetcher = DataFetcher()
 #
+# dt = data_fetcher.get_data()
+# with open('data/current_data.json', 'w', encoding='utf-8') as f:
+#     print(json.dumps(dt, indent=4), file=f)
 
 #
 # for i, event in enumerate(data):
@@ -26,21 +29,19 @@ with open('data/current_data.json', 'r', encoding='utf-8') as f:
 
 model_generator = ModelGenerator()
 
-model_generator.generate_models(data)
+model_generator.generate_models()
 
 sim_service = SimilarityService()
-query = "música clàssica"
+query = "taller de ioga"
 res = sim_service.get_k_most_similar_events(query, 5)
 
-for i in res:
-    print(data[i]['denominacio'])
-    print(data[i]['descripcio'])
-
-query = "romanticisme"
-res = sim_service.get_k_most_similar_events(query, 5)
 
 for i in res:
-    print(data[i]['denominacio'])
-    print(data[i]['descripcio'])
+    for event in data:
+        if event['id'] == i:
+            print(event['denominacio'])
+            print(event['descripcio'])
+
+
 
 

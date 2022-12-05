@@ -7,7 +7,7 @@ from joblib import load, dump
 class ModelManager:
 
     def __init__(self):
-        self._path = f'models{os.sep}'
+        self._path = f'data{os.sep}'
         self.vectorizer = None
         self.svd = None
 
@@ -29,5 +29,5 @@ class ModelManager:
         logging.info("Saving tf-idf model")
         dump(vec, self._path+'tf-idf.joblib')
 
-        logging.info("Unloading svd model")
+        logging.info("Saving svd model")
         dump(svd, self._path+'svd.joblib')

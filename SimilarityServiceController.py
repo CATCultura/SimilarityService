@@ -20,7 +20,7 @@ template = {
                    "the given query q. The service uses a very basic Latent Semantic Analysis to perform the search.",
     "version": "1.0.0"
   },
-  "host": "localhost:5500",  # overrides localhost:500
+  "host": "10.4.41.41:5500",  # overrides localhost:500
   "schemes": [
     "http"
   ]

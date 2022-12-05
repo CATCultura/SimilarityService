@@ -6,6 +6,8 @@ WORKDIR /py-service
 
 RUN pip install --upgrade pip
 
+RUN pip install flask-restx
+
 RUN pip install -r requirements.txt
 
 ENTRYPOINT ["python"]

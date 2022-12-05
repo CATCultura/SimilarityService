@@ -48,10 +48,10 @@ full_data = load_text_data('../data/current_data.json')
 descriptions = extract_text(full_data)
 
 logging.info("Loading tf-idf model")
-vectorizer = load('../models/tf-idf.joblib')
+vectorizer = load('../data/tf-idf.joblib')
 
 logging.info("Loading svd model")
-svd = load('../models/svd.joblib')
+svd = load('../data/svd.joblib')
 
 truncated_matrix = svd.transform(vectorizer.transform(descriptions))
 

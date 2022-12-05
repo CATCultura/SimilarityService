@@ -6,6 +6,7 @@ from numpy.linalg import norm
 import numpy as np
 
 from Service.DataManager.ModelManager import ModelManager
+from Service.ModelGenerator.ModelGenerator import ModelGenerator
 
 
 def cosine_similarity(b):
@@ -24,8 +25,9 @@ def load_mapping(path):
 class SimilarityService:
 
     def __init__(self):
-        self.remote_url = 'http://10.4.41.41:8081/allevents'
+        # self.remote_url = 'http://10.4.41.41:8081/allevents'
         self._model_manager = ModelManager()
+        self._model_generator = ModelGenerator()
 
     def get_k_most_similar_events(self, q, k):
         self._model_manager.load_models()
@@ -54,10 +56,13 @@ class SimilarityService:
         logging.info('Reversed')
         logging.info(top_k)
         logging.info(similarity_score_list[top_k])
-
+        self._model_manager.unload_models()
         # returning the ids of the relevant events
         result = []
         for k in top_k:
             result.append(mapping[str(k)])
 
         return result
+
+    def update_models(self, data=None):
+        self._model_generator.generate_models(data)

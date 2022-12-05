@@ -1,6 +1,8 @@
 import json
 from base64 import b64encode
 
+import logging
+
 import requests as requests
 
 
@@ -18,10 +20,13 @@ class DataFetcher:
         headers = {
             'Authorization': basic_auth('admin', 'admin')
         }
+        logging.info('Sending the request...')
         req = requests.get(self._url, headers=headers)
         if req.status_code == 200:
+            logging.info('Data successfully received.')
             return json.loads(req.text)
         else:
+            logging.warning('Error fetching the data.')
             raise "Request unsuccessful"
 
 

@@ -28,7 +28,7 @@ def load_text_data(path: str) -> dict:
 data = load_text_data('data/current_data.json')
 temp = []
 
-with open('data/empty-ca.txt', 'r', encoding='utf-8') as file:
+with open('configuration/stopwords.txt', 'r', encoding='utf-8') as file:
     temp = file.readlines()
 
 stopwords = [unidecode(a.strip()) for a in temp]
@@ -42,7 +42,7 @@ vectorizer.strip_accents='unicode'
 vectorizer.stop_words = stopwords
 print("Initiating tf-idf extraction...")
 vectorizer.fit(text)
-dump(vectorizer, 'models/tf-idf.joblib')
+dump(vectorizer, 'data/tf-idf.joblib')
 result = vectorizer.transform(text)
 vocab = vectorizer.vocabulary
 query = "recital de poesia"
@@ -52,7 +52,7 @@ query = vectorizer.transform([query])
 svd = TruncatedSVD(n_components=1000, n_iter=10, random_state=52)
 print("Initiating SVD computation...")
 svd.fit(result)
-dump(svd, 'models/svd.joblib')
+dump(svd, 'data/svd.joblib')
 print(svd.explained_variance_ratio_.sum())
 print("Initiating SVD transform...")
 truncated_matrix = svd.transform(result)

@@ -1,8 +1,10 @@
-FROM python:3.7.14-alpine3.15
+FROM python:3.9.15-slim
 
 ADD ./ /py-service/
 
 WORKDIR /py-service
+
+RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 

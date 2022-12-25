@@ -9,6 +9,8 @@ import numpy as np
 from Service.DataManager.DataFetcher import DataFetcher
 from Service.DataManager.ModelManager import ModelManager
 
+relevant_fields = ['descripcio', 'denominacio', 'subtitol']
+
 
 def load_stopwords():
     temp = []
@@ -18,15 +20,24 @@ def load_stopwords():
     return stopwords
 
 
+def sanitize_text(text):
+    res = text.split("NOTA DE L'AGENDA")
+    return res[0]
+
+
 def extract_relevant_info(events: dict):
     mapper = {}
     text = []
     for i, event in enumerate(events):
-        if event['descripcio']:
-            mapper[i] = event['id']
-            text.append(event['descripcio'])
+        event_text = ""
+        mapper[i] = event['id']
+        for field in relevant_fields:
+            if event[field]:
+                event_text = f'{event_text} \n\n {sanitize_text(event[field])}'
+        if event_text:
+            text.append(event_text)
         else:
-            logging.info(f'Event with id {event["id"]} has no description. Skipping it...')
+            logging.info(f'Event with id {event["id"]} has no useful textual data. Skipping it...')
     return text, mapper
 
 
@@ -71,8 +82,7 @@ class ModelGenerator:
 
     @staticmethod
     def _generate_svd(original_matrix):
-        svd = TruncatedSVD(n_components=1000, n_iter=15, random_state=98)
-
+        svd = TruncatedSVD(n_components=300, n_iter=15, random_state=98)
         logging.info("Initiating SVD computation...")
         svd.fit(original_matrix)
         logging.info(f'Explained variance: {svd.explained_variance_ratio_.sum()}')

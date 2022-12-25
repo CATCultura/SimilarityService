@@ -3,7 +3,6 @@ import logging
 
 import flask
 from flask import request
-from flask_restx import Api, Namespace, fields
 from flasgger import swag_from, Swagger
 
 from Service.ModelGenerator.ModelGenerator import ModelGenerator

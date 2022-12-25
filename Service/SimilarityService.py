@@ -58,9 +58,9 @@ class SimilarityService:
         logging.info(similarity_score_list[top_k])
         self._model_manager.unload_models()
         # returning the ids of the relevant events
-        result = []
+        result = {}
         for k in top_k:
-            result.append(mapping[str(k)])
+            result[mapping[str(k)]] = similarity_score_list[k]
 
         return result
 

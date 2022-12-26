@@ -78,9 +78,5 @@ for k,v in mapper.items():
     print(data[k]['denominacio'])
     print(data[k]['descripcio'])
 
-# for i, item in enumerate(data):
-#     if i in top_5:
-#         print(f'posicio {top_5.tolist().index(i)}')
-#         print(item['denominacio'])
-#         print(item['descripcio'])
+
 

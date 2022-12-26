@@ -1,0 +1,2 @@
+class RequestFailure(Exception):
+    pass

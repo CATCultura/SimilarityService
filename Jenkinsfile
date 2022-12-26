@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     stages {
-//         stage('Test') {
-//             steps {
-//                 sh 'python3 -m unittest '
-//             }
-//         }
+        stage('SonarQube Analysis') {
+            steps {
+                sh 'sonar-scanner -Dsonar.projectKey=SimilarityService -Dsonar.sources=. -Dsonar.host.url=http://10.4.41.41:9000 -Dsonar.login=sqp_87a5da6fede32be5cab8636bdf42cbe64b13e0c9'
+            }
+        }
 
         stage('Deploy') {
             steps {

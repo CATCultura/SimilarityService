@@ -5,6 +5,8 @@ import logging
 
 import requests as requests
 
+from Service.DataManager.RequestFailure import RequestFailure
+
 
 def basic_auth(username, password):
     token = b64encode(f"{username}:{password}".encode('utf-8')).decode("ascii")
@@ -27,6 +29,6 @@ class DataFetcher:
             return json.loads(req.text)
         else:
             logging.warning('Error fetching the data.')
-            raise "Request unsuccessful"
+            raise RequestFailure("Request unsuccessful")
 
 

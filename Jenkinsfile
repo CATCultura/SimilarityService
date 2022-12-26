@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('SonarQube Analysis') {
             steps {
-                sh 'sonar-scanner -Dsonar.projectKey=SimilarityService -Dsonar.sources=. -Dsonar.host.url=http://10.4.41.41:9000 -Dsonar.login=sqp_87a5da6fede32be5cab8636bdf42cbe64b13e0c9'
+                sh '/home/alumne/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -Dsonar.projectKey=SimilarityService -Dsonar.sources=. -Dsonar.host.url=http://10.4.41.41:9000 -Dsonar.login=sqp_87a5da6fede32be5cab8636bdf42cbe64b13e0c9'
             }
         }
 

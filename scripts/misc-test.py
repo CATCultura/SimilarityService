@@ -24,7 +24,7 @@ logging.basicConfig(level=logging.INFO)
 # with open('data/current_data.json', 'w', encoding='utf-8') as f:
 #      print(json.dumps(data, indent=4), file=f)
 
-with open('data/current_data.json', 'r', encoding='utf-8') as f:
+with open('../data/current_data.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 # model_generator = ModelGenerator()

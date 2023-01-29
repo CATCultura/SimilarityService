@@ -16,7 +16,8 @@ def basic_auth(username, password):
 class DataFetcher:
 
     def __init__(self):
-        self._url = 'http://10.4.41.41:8081/allevents'
+        # insert url
+        self._url = '****************'
 
     def get_data(self):
         headers = {
